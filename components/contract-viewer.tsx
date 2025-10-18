@@ -12,6 +12,7 @@ import { Code2, FileCode, Package, Star, Sparkles, Copy, Check, Info } from "luc
 import { cn } from "@/lib/utils";
 import { ContractDetails } from "@/components/contract-details";
 import { ContractAnalysisGemini } from "@/components/contract-analysis-gemini";
+import { ContractMoveGenerator } from "@/components/contract-move-generator";
 
 interface ContractViewerProps {
   contractId: string;
@@ -162,7 +163,7 @@ export function ContractViewer({ contractId }: ContractViewerProps) {
 
       {/* Tabs */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-secondary">
+<TabsList className="flex flex-wrap bg-secondary w-full">
           <TabsTrigger value="overview">
             <Info className="h-4 w-4 mr-2" />
             Overview
@@ -178,6 +179,10 @@ export function ContractViewer({ contractId }: ContractViewerProps) {
             <TabsTrigger value="gemini">
     <Sparkles className="h-4 w-4 mr-2" />
     Gemini
+  </TabsTrigger>
+    <TabsTrigger value="generator"> {/* NEW */}
+    <Sparkles className="h-4 w-4 mr-2" />
+    Generator
   </TabsTrigger>
         </TabsList>
 
@@ -338,6 +343,12 @@ export function ContractViewer({ contractId }: ContractViewerProps) {
         </TabsContent>
         <TabsContent value="gemini">
   <ContractAnalysisGemini
+    contractId={contractId}
+    normalizedModules={modulesQ.data}
+  />
+</TabsContent>
+<TabsContent value="generator">
+  <ContractMoveGenerator
     contractId={contractId}
     normalizedModules={modulesQ.data}
   />

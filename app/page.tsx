@@ -30,9 +30,6 @@ export default function HomePage() {
                 <Button size="lg" asChild>
                   <Link href="/explorer">Start Exploring</Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/analytics">View Analytics</Link>
-                </Button>
               </div>
             </div>
 

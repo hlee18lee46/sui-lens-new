@@ -30,9 +30,6 @@ export function Header() {
             <Link href="/explorer" className="text-muted-foreground hover:text-foreground transition-colors">
               Explorer
             </Link>
-            <Link href="/analytics" className="text-muted-foreground hover:text-foreground transition-colors">
-              Analytics
-            </Link>
             <Link href="/favorites" className="text-muted-foreground hover:text-foreground transition-colors">
               Favorites
             </Link>
@@ -53,18 +50,6 @@ export function Header() {
 
         {/* Wallet status + actions */}
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-            <Link href="/favorites" className="gap-2">
-              <Star className="h-4 w-4" />
-              <span>Favorites</span>
-            </Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-            <Link href="/analytics" className="gap-2">
-              <BarChart3 className="h-4 w-4" />
-              <span>Analytics</span>
-            </Link>
-          </Button>
 
           {/* Status + address */}
           <span
