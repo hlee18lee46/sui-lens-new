@@ -73,6 +73,20 @@ Sui-Lens indexes smart contracts deployed on the Sui blockchain and provides:
 
 ---
 
+🔑 Environment Variables
+Variable	Description
+NEXT_PUBLIC_SUI_NETWORK	Sui network (testnet or mainnet)
+GOOGLE_API_KEY	Gemini API key
+GEMINI_API_KEY	Gemini API key
+SNOWFLAKE_ACCOUNT	e.g. NXOVXNL-RSC49174
+SNOWFLAKE_USER	Snowflake user (e.g. HLEE3088)
+SNOWFLAKE_PRIVATE_KEY	Base64-encoded PEM private key
+SNOWFLAKE_DATABASE	Database name (e.g. HLEE3088_DB)
+SNOWFLAKE_SCHEMA	Schema name (e.g. PUBLIC)
+SNOWFLAKE_WAREHOUSE	Warehouse (e.g. COMPUTE_WH)
+
+---
+
 ## 🧩 Quick Start  
 
 ```bash
@@ -86,3 +100,10 @@ cp .env.example .env.local
 
 # Run locally
 npm run dev
+
+
+---
+
+## 📜 License
+
+MIT License © 2025 Han Lee
