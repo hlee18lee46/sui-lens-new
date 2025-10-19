@@ -1,3 +1,91 @@
+# Sui-Lens 👁️‍🗨️ — Explore & Understand Sui Move Smart Contracts
+
+> Web3 is hard for newcomers. **Sui-Lens** turns on-chain Move modules into clear, explorable knowledge — with **AI explanations** and **NL → Move generation**.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](#-contributing)
+
+## 🧠 Inspiration
+Web3 can overwhelm new learners scanning transactions or contracts. Sui-Lens provides a playground to **view structure, overview, and normalized modules** of `.move` contracts on Sui — and analyze them with **Gemini**. It also lets users **generate Move** from **natural language** prompts.
+
+## ⚙️ What it does
+- 🧩 **Module & Function Explorer** – browse Move modules, structs, and exposed functions  
+- 🤖 **AI-powered explanations** – Gemini summarizes contract logic in plain English  
+- ⭐ **Favorites & Analytics** – save to **Snowflake** and view insights  
+- 🪟 **Multi-tab viewer** – Overview / Functions / Structs / Source / Gemini AI
+
+## 🛠️ How we built it
+- **Frontend:** Next.js 15 + TypeScript + Tailwind  
+- **Blockchain:** Mysten Dapp Kit (Sui RPC) to fetch normalized Move modules  
+- **AI Engine:** Gemini 1.5 Pro for code analysis & generation  
+- **Data Layer:** Snowflake SDK for favorites + analytics  
+- **State:** React Query for live caching & background refetch  
+- **APIs:** Next.js App Router endpoints (`/api/favorites/*`) + Flask Sui RPC proxy
+
+## ☁️ Deployments
+- **Frontend:** Next.js on DigitalOcean App Platform  
+- **API (Flask):** `gunicorn autoapp:app` with optional Valkey/Redis cache  
+- **Env:** `SUI_RPC_URL`, `VALKEY_URL`, `CACHE_TTL`, Snowflake & Gemini creds
+
+## 🔌 API Endpoints (Flask Sui proxy)
+- `GET /api/sui/health`
+- `GET /api/sui/packages/recent?limit=&cursor=`
+- `GET /api/sui/packages/since/<start>?count=`
+- `GET /api/sui/packages/<package_id>/modules`
+- `GET /api/sui/packages/<package_id>/module/<module_name>`
+- `GET /api/sui/objects/<object_id>`
+- `POST /api/sui/rpc` `{ "method": "...", "params": [...] }`
+
+> See `/api/sui/routes.py` for implementation details and caching.
+
+## 🧊 Use of Snowflake API
+We persist contract metadata (packageId, function/struct counts, normalized JSON) and user favorites in Snowflake for **fast queries** and **analytics**. This enables “most-viewed,” “recently indexed,” and future **risk scoring**.
+
+## 🤖 Use of Gemini
+- *Summaries:* Explain modules, structs, and capabilities in plain English  
+- *Generation:* NL prompts → Move boilerplate (e.g., “token burns 1% on transfer”)  
+- *UI:* Dedicated **Gemini** tab with explorable output
+
+## ☁️ Use of DigitalOcean
+- **App Platform** builds & deploys both Next.js and the Flask API from GitHub on push  
+- HTTPS routing, logs, scaling, and simple `app.yaml` spec
+
+## 🚧 Challenges
+- `@mysten/sui` vs `@mysten/sui.js` version conflicts  
+- Snowflake key-pair auth from serverless contexts  
+- Avoiding HTML 404 fallbacks when proxying Snowflake queries  
+- Safely destroying Snowflake connections with TypeScript types
+
+## 🏆 Accomplishments
+- Real-time contract explorer for Sui testnet  
+- Inline **Gemini** explanations in tabbed UI  
+- Snowflake-backed insights  
+- Clean, modular UI inspired by IDEs
+
+## 📚 What we learned
+- Sui’s Move module normalization API  
+- Snowflake patterns for blockchain metadata  
+- Prompting Gemini for structured code summarization  
+- Composable serverless APIs in App Router
+
+## 🚀 What’s next
+- Mainnet + community indexing  
+- Live analytics & **risk scoring**  
+- Gemini-powered **contract auditor**  
+- Public APIs for developers
+
+## ▶️ Quickstart (dev)
+```bash
+# Frontend
+pnpm i && pnpm dev
+
+# API (Flask)
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+export FLASK_APP=autoapp:app
+flask run --port 8080
+
+
 # 🔭 Sui-Lens  
 > **AI-Powered Smart-Contract Explorer for the Sui Blockchain**
 
